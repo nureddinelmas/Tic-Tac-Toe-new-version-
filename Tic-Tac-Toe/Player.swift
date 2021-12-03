@@ -12,13 +12,17 @@ struct Player {
     var playerName: String = ""
     var aktiv : Bool = true
     var positions : [IndexPath] = []
-    var theTag = 1
+    var theTag : Int = 0
+    var isHisTurn = false
+    var didHeWin = false
+ 
     
 }
 
 struct GamePlan{
-    var row : Int = 3
+    var playSize : Int = 3
     var rate : CGFloat = 4
+    var positionsCell : [Int] = []
 }
 
 

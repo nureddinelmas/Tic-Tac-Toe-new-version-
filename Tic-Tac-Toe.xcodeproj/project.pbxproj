@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E119A08C275A2AE400289FC3 /* PlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E119A08B275A2AE400289FC3 /* PlayerActions.swift */; };
 		E1ADC1BB27576826000962CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ADC1BA27576826000962CE /* AppDelegate.swift */; };
 		E1ADC1BD27576826000962CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ADC1BC27576826000962CE /* SceneDelegate.swift */; };
 		E1ADC1BF27576826000962CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ADC1BE27576826000962CE /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E119A08B275A2AE400289FC3 /* PlayerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActions.swift; sourceTree = "<group>"; };
 		E1ADC1B727576826000962CE /* Tic-Tac-Toe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic-Tac-Toe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1ADC1BA27576826000962CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1ADC1BC27576826000962CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				E1ADC1CE27576A36000962CE /* TicTacToeViewController.swift */,
 				E1ADC1D027576B12000962CE /* TicTacToeCollectionViewCell.swift */,
 				E1ADC1D22757759E000962CE /* Player.swift */,
+				E119A08B275A2AE400289FC3 /* PlayerActions.swift */,
 			);
 			path = "Tic-Tac-Toe";
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E119A08C275A2AE400289FC3 /* PlayerActions.swift in Sources */,
 				E1ADC1D127576B12000962CE /* TicTacToeCollectionViewCell.swift in Sources */,
 				E1ADC1BF27576826000962CE /* ViewController.swift in Sources */,
 				E1ADC1BB27576826000962CE /* AppDelegate.swift in Sources */,

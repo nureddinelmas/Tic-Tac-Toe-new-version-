@@ -13,35 +13,44 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
 
     
     @IBOutlet weak var playCollectionView: UICollectionView!
-    
+   
+
+    var playActions = PlayerActions()
     var player1 = Player()
     var player2 = Player()
     
-    var tableNumber : [Int] = []
-    
-    var row : Int = 7
-    var rate: CGFloat = 0
     var gamePlan = GamePlan()
     
     
-    let image = Images(xImage: UIImage(named: "x")!, oImage: UIImage(named: "o")!, defaultImage: UIImage(named: "background")!)
+    
+    let image = Images(xImage: UIImage(named: "x")!, oImage: UIImage(named: "o")!, defaultImage: UIImage(named: "kvadrat")!)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        rate = CGFloat(self.row + 1)
-        gamePlan = GamePlan(row: row, rate : CGFloat(self.row + 1))
-        
-        let mult = row * row
-        for i in 0...Int(mult-1) {
-            tableNumber.append(i*34)
+        gamePlan.playSize = 5
+   
+        if player1.playerName == "" {
+            player1.playerName = "Player 1"
         }
+        player1.isHisTurn = true
+//        titleLabel.text = player1.playerName+"'s Turn"
+        player1.theTag = 1
+        
+        if player2.playerName == "" {
+            player2.playerName = "Player 2"
+        }
+        player2.isHisTurn = false
+        player2.theTag = 2
+        
+    
         
         let flowlayout = UICollectionViewFlowLayout()
        
         flowlayout.scrollDirection = .vertical
         flowlayout.minimumLineSpacing = 1
         flowlayout.minimumInteritemSpacing = 1
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flowlayout.itemSize = CGSize(width: (view.frame.size.width/gamePlan.rate), height: (view.frame.size.width/gamePlan.rate))
         
         playCollectionView.dataSource = self
@@ -50,101 +59,218 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
  
     }
     
+
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gamePlan.row * gamePlan.row
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return gamePlan.playSize
     }
     
-
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return gamePlan.playSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (Int(collectionView.bounds.width) - 5) / gamePlan.playSize, height: (Int(collectionView.bounds.size.height) - 5) / gamePlan.playSize)
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = playCollectionView.dequeueReusableCell(withReuseIdentifier: gameIdentifier, for: indexPath) as! TicTacToeCollectionViewCell
-        
+        cell.theTag = 0
         cell.imageView.image = image.defaultImage
         return cell
     }
     
 
+  
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = playCollectionView.cellForItem(at: indexPath) as! TicTacToeCollectionViewCell
+        if cell.imageView.image == image.defaultImage{
+            
         
         if player1.aktiv == true {
             cell.imageView.image = image.oImage
             player1.aktiv.toggle()
-            player1.positions.append(indexPath)
-            tableNumber[indexPath.row] = 1
             cell.theTag = player1.theTag
-            print(player1.positions)
-            
+            player1.positions.append(indexPath)
+            player1.isHisTurn = false
+            player2.isHisTurn = true
+       
+
         } else {
             cell.imageView.image = image.xImage
             player1.aktiv.toggle()
-            player2.positions.append(indexPath)
             cell.theTag = player2.theTag
-            tableNumber[indexPath.section] = 2
-            print(indexPath.row)
-            print(indexPath.section)
-            
-            for i in player2.positions{
-                print(i)
+            player2.positions.append(indexPath)
+            player2.isHisTurn = false
+            player1.isHisTurn = true
+        }
+        }
+        gamePlan.positionsCell.append(cell.theTag)
+        checkItNumber1(cVW: collectionView)
+        updateView()
+        
+      
+        if gamePlan.positionsCell.count == Int(gamePlan.playSize)*Int(gamePlan.playSize){
+            if !player1.didHeWin && !player2.didHeWin{
+                showAlertViewWith(message: "It's a Tie")
             }
         }
-        checkItNumber1(cVW: collectionView)
+        
+        
     }
 
  
     func checkItNumber1(cVW : UICollectionView) {
-        for y in 0...Int(row-1){
-            for x in 0...Int(row-1) {
-                let cell = cVW.cellForItem(at: IndexPath.init(row: x, section: y)) as! TicTacToeCollectionViewCell
-                if cell.theTag == player2.theTag {
-                    print("fdfd")
+        var resultP1 = true
+        var resultP2 = true
+ 
+        
+//        Horizontal
+        for column in 0...Int(gamePlan.playSize-1){
+            for row in 0...Int(gamePlan.playSize-1) {
+                
+                let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
+                if cell.theTag != player1.theTag{
+                    resultP1 = false
                 }
+                if cell.theTag != player2.theTag{
+                    resultP2 = false
+                }
+            }
+            if resultP1{
+                player1.didHeWin = true
+                
+                return
+            }else if resultP2{
+                player2.didHeWin = true
+        
+                return
+            }else{
+                resultP1 = true
+                resultP2 = true
+            }
+        }
+        
+        
+        //Vertical Check
+        for row in 0...Int(gamePlan.playSize-1){
+            for column in 0...Int(gamePlan.playSize-1) {
+                let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
+               
+                if cell.theTag != player1.theTag{
+                    resultP1 = false
+                }
+                if cell.theTag != player2.theTag{
+                    resultP2 = false
+                }
+            }
+            if resultP1{
+                player1.didHeWin = true
+                return
+            }else if resultP2{
+                player2.didHeWin = true
+                return
+            }else{
+                resultP1 = true
+                resultP2 = true
+            }
+        }
+        
+        //Right Diagonal Check
+        for row in 0...Int(gamePlan.playSize-1){
+            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: row)) as! TicTacToeCollectionViewCell
+            
+            if cell.theTag != player1.theTag{
+                resultP1 = false
+            }
+            if cell.theTag != player2.theTag{
+                resultP2 = false
+            }
+        }
+        if resultP1{
+            player1.didHeWin = true
+            return
+        }else if resultP2{
+            player2.didHeWin = true
+            return
+        }else{
+            resultP1 = true
+            resultP2 = true
+        }
+        
+        //Left Diagonal Check
+        for row in 0...Int(gamePlan.playSize-1){
+            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: Int(gamePlan.playSize-1) - row)) as! TicTacToeCollectionViewCell
+            if cell.theTag != player1.theTag{
+                resultP1 = false
+            }
+            if cell.theTag != player2.theTag{
+                resultP2 = false
+            }
+        }
+        if resultP1{
+            player1.didHeWin = true
+            return
+        }else if resultP2{
+            player2.didHeWin = true
+            return
+        }else{
+            resultP1 = true
+            resultP2 = true
+        }
+        
+        }
+        
+        
+        
+    func updateView(){
+        if player1.didHeWin {
+            showAlertViewWith(message: player1.playerName+" Player 1 Won!!")
+        }else if player2.didHeWin {
+            showAlertViewWith(message: player2.playerName+" Player 2 Won!!")
+        }else{
+            if player1.isHisTurn {
+//                titleLabel.text = player1.playerName+"'s Turn"
+            }else{
+//                titleLabel.text = player2.playerName+"'s Turn"
             }
         }
     }
+        
+    func showAlertViewWith(message: String){
+        let alert = UIAlertController(title: "Game Over", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            self.reloadGame()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
-    func checkItNumber(){
-            let winner = "nureddin"
-        if (tableNumber[0] == tableNumber[1] && tableNumber[0] == tableNumber[2]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
+    func reloadGame(){
+        for i in gamePlan.positionsCell {
+            print(i)
         }
-        if (tableNumber[3] == tableNumber[4] && tableNumber[3] == tableNumber[5]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
-        if (tableNumber[6] == tableNumber[7] && tableNumber[6] == tableNumber[8]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
+        print("--------")
+        gamePlan.positionsCell = []
+        player1.isHisTurn = true
+        player1.didHeWin = false
+        player1.positions = []
+        
+        player2.isHisTurn = false
+        player2.didHeWin = false
+        player2.positions = []
+        updateView()
+        playCollectionView.reloadData()
         
         
-        if (tableNumber[0] == tableNumber[3] && tableNumber[0] == tableNumber[6]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
+    }
+    
 
-        }
-        if (tableNumber[1] == tableNumber[4] && tableNumber[1] == tableNumber[7]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
-        if (tableNumber[2] == tableNumber[5] && tableNumber[2] == tableNumber[8]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
-        
-        
-        if (tableNumber[0] == tableNumber[4] && tableNumber[0] == tableNumber[8]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
-        if (tableNumber[2] == tableNumber[4] && tableNumber[2] == tableNumber[6]){
-            makeAlert(title: "Bravo \(winner.uppercased())!", message: "You win! ")
-            waitForNewPlay()
-        }
+   
         
         func makeAlert(title: String, message: String){
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -162,8 +288,6 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
             present(alert, animated: true, completion: nil)
         }
         
-        func waitForNewPlay(){
-          
-        }
+       
 }
-}
+
