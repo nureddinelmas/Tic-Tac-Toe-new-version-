@@ -13,7 +13,8 @@ private let gameIdentifier = "gameIdentifier"
 class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
 
     @IBOutlet weak var playerNameLabel: UILabel!
-    
+    @IBOutlet weak var numberOfWinP2: UILabel!
+    @IBOutlet weak var numberOfWinP1: UILabel!
     @IBOutlet weak var playCollectionView: UICollectionView!
 
     var player1 = Player()
@@ -30,11 +31,18 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gamePlan.playSize = 3
-   
+        
+        if player1.playerName == "" {
+            player1.playerName = "First Player"
+        }
+        if player2.playerName == "" {
+            player2.playerName = "Second Player"
+        }
+        playerNameLabel.text = "\(player1.playerName) is playing now"
+        numberOfWinP1.text = "\(player1.playerName) : 0"
+        numberOfWinP2.text = "\(player2.playerName) : 0"
 
         player1.theTag = 1
-        
         player2.theTag = 2
         
     
@@ -79,8 +87,6 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
 
-  
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
         
@@ -101,7 +107,6 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         }
         gamePlan.positionsCell.append(cell.theTag)
-//        checkItNumber(cVW: collectionView)
         let valueT = playActions.checkItNumber(cVW: collectionView, p1Tag: player1.theTag, p2Tag: player2.theTag, gameSize: gamePlan.playSize)
         if valueT == 1 {
             player1.playerWin = true
@@ -115,7 +120,7 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
 
         if gamePlan.positionsCell.count == Int(gamePlan.playSize)*Int(gamePlan.playSize){
             if !player1.playerWin && !player2.playerWin{
-                showAlertViewWith(message: "It's a Tie")
+                showAlertViewWith(message: "It's a Draw")
             }
         }
         
@@ -123,17 +128,12 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func updateView(){
-        print(player1.playerWin)
         if player1.playerWin {
-            showAlertViewWith(message: player1.playerName + " Player 1 Won!!")
+            numberOfWinP1.text = "\(player1.playerName) : \(player1.numberOfWin + 1)"
+            showAlertViewWith(message: player1.playerName + "  Won!!")
         }else if player2.playerWin {
-            showAlertViewWith(message: player2.playerName + " Player 2 Won!!")
-        }else{
-//            if player1.isHisTurn {
-//                titleLabel.text = player1.playerName+"'s Turn"
-//            }else{
-//                titleLabel.text = player2.playerName+"'s Turn"
-//            }
+            showAlertViewWith(message: player2.playerName + "  Won!!")
+            numberOfWinP2.text = "\(player2.playerName) : \(player2.numberOfWin + 1)"
         }
     }
         
@@ -156,111 +156,5 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
-    func checkItNumber(cVW : UICollectionView) {
-        var resultP1 = true
-        var resultP2 = true
-
-//        Horizontal
-        for column in 0...Int(gamePlan.playSize-1){
-            for row in 0...Int(gamePlan.playSize-1) {
-                
-                let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
-                if cell.theTag != player1.theTag{
-                    resultP1 = false
-                }
-                if cell.theTag != player2.theTag{
-                    resultP2 = false
-                }
-               
-            }
-            
-            if resultP1{
-                player1.playerWin = true
-                
-                return
-            }else if resultP2{
-                player2.playerWin = true
-        
-                return
-            }else{
-                resultP1 = true
-                resultP2 = true
-            }
-        }
-        
-        
-        //Vertical Check
-        for row in 0...Int(gamePlan.playSize-1){
-            for column in 0...Int(gamePlan.playSize-1) {
-                let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
-               
-                if cell.theTag != player1.theTag{
-                    resultP1 = false
-                }
-                if cell.theTag != player2.theTag{
-                    resultP2 = false
-                }
-            }
-            if resultP1{
-                player1.playerWin = true
-                return
-            }else if resultP2{
-                player2.playerWin = true
-                return
-            }else{
-                resultP1 = true
-                resultP2 = true
-            }
-        }
-        
-        //Right Diagonal Check
-        for row in 0...Int(gamePlan.playSize-1){
-            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: row)) as! TicTacToeCollectionViewCell
-       
-            if cell.theTag != player1.theTag{
-                resultP1 = false
-            }
-            if cell.theTag != player2.theTag{
-                resultP2 = false
-            }
-        }
-        if resultP1{
-            player1.playerWin = true
-            return
-        }else if resultP2{
-            player2.playerWin = true
-            return
-        }else{
-            resultP1 = true
-            resultP2 = true
-        }
-        
-        //Left Diagonal Check
-        for row in 0...Int(gamePlan.playSize-1){
-            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: Int(gamePlan.playSize-1) - row)) as! TicTacToeCollectionViewCell
-            if cell.theTag != player1.theTag{
-                resultP1 = false
-            }
-            if cell.theTag != player2.theTag{
-                resultP2 = false
-            }
-        }
-        if resultP1{
-            player1.playerWin = true
-            return
-        }else if resultP2{
-            player2.playerWin = true
-            return
-        }else{
-            resultP1 = true
-            resultP2 = true
-        }
-        }
-    
-      
 }
 

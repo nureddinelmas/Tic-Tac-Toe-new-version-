@@ -114,7 +114,9 @@ class PlayerActions {
         }
     
         
-     
+    func numberOfWin(with: Int) -> Int {
+        return with + 1
+    }
     
    
     

@@ -17,22 +17,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter first player name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6vS-Fx-eaM">
-                                <rect key="frame" x="40" y="383" width="364" height="34"/>
+                                <rect key="frame" x="40" y="386" width="364" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter second player name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1t-wp-CQe">
-                                <rect key="frame" x="40" y="457" width="364" height="34"/>
+                                <rect key="frame" x="40" y="460" width="364" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-a6-hrO" userLabel="Play Size Picker View">
+                                <rect key="frame" x="10" y="120" width="394" height="216"/>
+                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbl-4Q-kWm">
-                                <rect key="frame" x="100" y="531" width="214" height="31"/>
+                                <rect key="frame" x="100" y="534" width="214" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Play Now"/>
                                 <connections>
                                     <action selector="playNow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XPp-Bw-gTf"/>
-                                    <segue destination="Rb7-7D-4p2" kind="presentation" identifier="toPlayPlan" modalPresentationStyle="fullScreen" id="Na7-7h-XcE"/>
+                                    <segue destination="Rb7-7D-4p2" kind="presentation" identifier="toPlayPlan" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="Na7-7h-XcE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -45,13 +48,17 @@
                             <constraint firstItem="Vbl-4Q-kWm" firstAttribute="top" secondItem="k1t-wp-CQe" secondAttribute="bottom" constant="40" id="FHZ-Kj-fs8"/>
                             <constraint firstItem="k1t-wp-CQe" firstAttribute="top" secondItem="6vS-Fx-eaM" secondAttribute="bottom" constant="40" id="TPF-Xu-eW0"/>
                             <constraint firstItem="Vbl-4Q-kWm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="URe-vs-bUv"/>
+                            <constraint firstItem="wcD-a6-hrO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="bhZ-D1-4dh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6vS-Fx-eaM" secondAttribute="trailing" constant="10" id="fah-9L-Ddd"/>
-                            <constraint firstItem="6vS-Fx-eaM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="295" id="qDc-1l-un3"/>
+                            <constraint firstAttribute="trailing" secondItem="wcD-a6-hrO" secondAttribute="trailing" constant="10" id="gP6-wa-ybz"/>
+                            <constraint firstItem="6vS-Fx-eaM" firstAttribute="top" secondItem="wcD-a6-hrO" secondAttribute="bottom" constant="50" id="siO-7c-8oj"/>
                             <constraint firstItem="6vS-Fx-eaM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="wNw-Rt-lCU"/>
+                            <constraint firstItem="wcD-a6-hrO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="zw1-qO-fb6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tic Tac Toe" id="2lK-oc-6ei"/>
                     <connections>
+                        <outlet property="playSizePickerView" destination="wcD-a6-hrO" id="f4K-X5-Xcm"/>
                         <outlet property="player1NameLabel" destination="6vS-Fx-eaM" id="oSf-a2-BFH"/>
                         <outlet property="player2NameLabel" destination="k1t-wp-CQe" id="ypg-Dk-he8"/>
                     </connections>
@@ -111,17 +118,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyG-yV-Uwp">
+                                <rect key="frame" x="20" y="791" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcQ-3d-FWi">
+                                <rect key="frame" x="20" y="760" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZAV-fM-oe1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tyG-yV-Uwp" firstAttribute="top" secondItem="NcQ-3d-FWi" secondAttribute="bottom" constant="10" id="1uq-Ny-cOx"/>
+                            <constraint firstItem="tyG-yV-Uwp" firstAttribute="leading" secondItem="ZAV-fM-oe1" secondAttribute="leading" constant="20" id="2Dj-Ag-BOf"/>
+                            <constraint firstItem="NcQ-3d-FWi" firstAttribute="leading" secondItem="ZAV-fM-oe1" secondAttribute="leading" constant="20" id="6N5-8c-y6g"/>
+                            <constraint firstItem="ZAV-fM-oe1" firstAttribute="trailing" secondItem="NcQ-3d-FWi" secondAttribute="trailing" constant="20" id="OJ8-Cu-7RP"/>
                             <constraint firstItem="wgi-qz-lIp" firstAttribute="leading" secondItem="ZAV-fM-oe1" secondAttribute="leading" constant="10" id="ZZF-li-u3h"/>
+                            <constraint firstItem="ZAV-fM-oe1" firstAttribute="bottom" secondItem="tyG-yV-Uwp" secondAttribute="bottom" constant="50" id="k8w-hE-WCb"/>
                             <constraint firstItem="ZAV-fM-oe1" firstAttribute="trailing" secondItem="wgi-qz-lIp" secondAttribute="trailing" constant="10" id="mGc-Pn-eM4"/>
                             <constraint firstItem="wgi-qz-lIp" firstAttribute="top" secondItem="ZAV-fM-oe1" secondAttribute="top" constant="20" id="uZe-lz-ku2"/>
+                            <constraint firstItem="ZAV-fM-oe1" firstAttribute="trailing" secondItem="tyG-yV-Uwp" secondAttribute="trailing" constant="20" id="vOu-EC-dZ1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zOq-3k-24r"/>
                     <connections>
+                        <outlet property="numberOfWinP1" destination="NcQ-3d-FWi" id="7fW-El-RvD"/>
+                        <outlet property="numberOfWinP2" destination="tyG-yV-Uwp" id="zdY-BU-qom"/>
                         <outlet property="playCollectionView" destination="OwF-jF-Qaw" id="1VE-I2-g2n"/>
                         <outlet property="playerNameLabel" destination="wgi-qz-lIp" id="Y4M-fy-dt0"/>
                     </connections>

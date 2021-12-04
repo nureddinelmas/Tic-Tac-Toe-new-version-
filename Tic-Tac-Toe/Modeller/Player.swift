@@ -13,7 +13,7 @@ struct Player {
     var aktiv : Bool = true
     var theTag : Int = 0
     var playerWin = false
- 
+    var numberOfWin = 0
     
 }
 
