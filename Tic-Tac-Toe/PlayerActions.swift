@@ -11,38 +11,114 @@ import UIKit
 class PlayerActions {
     var player1 = Player()
     var player2 = Player()
+   
+    
     
     var gamePlan = GamePlan()
     
-    func checkItNumber1(cVW : UICollectionView) {
+
+    
+    
+    func checkItNumber(cVW : UICollectionView, p1Tag : Int, p2Tag : Int, gameSize: Int) -> Int {
         var resultP1 = true
         var resultP2 = true
         
-        for column in 0...Int(gamePlan.playSize-1){
-            for row in 0...Int(gamePlan.playSize-1) {
-                print(IndexPath.init(row: row, section: column))
+        
+//        Horizontal
+        for column in 0...Int(gameSize-1){
+            for row in 0...Int(gameSize-1) {
+                
                 let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
-                if cell.theTag != player1.theTag{
-                    print(IndexPath.init(row: row, section: column))
+                
+                if cell.theTag != p1Tag {
                     resultP1 = false
                 }
-                if cell.theTag != player2.theTag{
+                if cell.theTag != p2Tag {
                     resultP2 = false
                 }
+               
             }
+            
             if resultP1{
-                player1.didHeWin = true
-                print("player 1 won")
-                return
+                return 1
             }else if resultP2{
-                player2.didHeWin = true
-                print("player 2 won")
-                return
+                return 2
             }else{
                 resultP1 = true
                 resultP2 = true
             }
         }
         
+        
+        //Vertical Check
+        for row in 0...Int(gameSize-1){
+            for column in 0...Int(gameSize-1) {
+                let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
+               
+                if cell.theTag != p1Tag {
+                    resultP1 = false
+                }
+                if cell.theTag != p2Tag {
+                    resultP2 = false
+                }
+            }
+            if resultP1{
+                return 1
+            }else if resultP2{
+                return 2
+            }else{
+                resultP1 = true
+                resultP2 = true
+            }
         }
+        
+        //Right Diagonal Check
+        for row in 0...Int(gameSize-1){
+            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: row)) as! TicTacToeCollectionViewCell
+       
+            if cell.theTag != p1Tag {
+                resultP1 = false
+            }
+            if cell.theTag != p2Tag {
+                resultP2 = false
+            }
+        }
+        if resultP1{
+            return 1
+        }else if resultP2{
+            return 2
+        }else{
+            resultP1 = true
+            resultP2 = true
+        }
+        
+        //Left Diagonal Check
+        for row in 0...Int(gameSize-1){
+            let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: Int(gameSize-1) - row)) as! TicTacToeCollectionViewCell
+            if cell.theTag != p1Tag {
+                resultP1 = false
+            }
+            if cell.theTag != p2Tag {
+                resultP2 = false
+            }
+        }
+        if resultP1{
+            return 1
+        }else if resultP2{
+            return 2
+        }else{
+            resultP1 = true
+            resultP2 = true
+        }
+        return 0
+        }
+    
+        
+     
+    
+   
+    
+   
+    
+    
 }

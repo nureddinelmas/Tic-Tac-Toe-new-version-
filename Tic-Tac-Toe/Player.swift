@@ -11,10 +11,8 @@ import UIKit
 struct Player {
     var playerName: String = ""
     var aktiv : Bool = true
-    var positions : [IndexPath] = []
     var theTag : Int = 0
-    var isHisTurn = false
-    var didHeWin = false
+    var playerWin = false
  
     
 }
