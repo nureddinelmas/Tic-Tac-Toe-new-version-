@@ -131,11 +131,14 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func updateView(){
         if player1.playerWin {
-            numberOfWinP1.text = "\(player1.playerName) : \(player1.numberOfWin + 1)"
+            player1.numberOfWin = player1.numberOfWin + 1
+            numberOfWinP1.text = "\(player1.playerName) : \(player1.numberOfWin)"
             showAlertViewWith(message: player1.playerName + "  Won!!")
+      
         }else if player2.playerWin {
+            player2.numberOfWin = player2.numberOfWin + 1
             showAlertViewWith(message: player2.playerName + "  Won!!")
-            numberOfWinP2.text = "\(player2.playerName) : \(player2.numberOfWin + 1)"
+            numberOfWinP2.text = "\(player2.playerName) : \(player2.numberOfWin)"
         }
     }
         
