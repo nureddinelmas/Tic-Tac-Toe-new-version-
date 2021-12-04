@@ -107,7 +107,9 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         }
         gamePlan.positionsCell.append(cell.theTag)
+       
         let valueT = playActions.checkItNumber(cVW: collectionView, p1Tag: player1.theTag, p2Tag: player2.theTag, gameSize: gamePlan.playSize)
+       
         if valueT == 1 {
             player1.playerWin = true
         } else if valueT == 2 {
