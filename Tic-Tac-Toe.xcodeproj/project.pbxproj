@@ -45,6 +45,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E119A08F275B5AC900289FC3 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E1ADC1BE27576826000962CE /* ViewController.swift */,
+				E1ADC1CE27576A36000962CE /* TicTacToeViewController.swift */,
+				E1ADC1D027576B12000962CE /* TicTacToeCollectionViewCell.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		E119A090275B5AED00289FC3 /* Storybord */ = {
+			isa = PBXGroup;
+			children = (
+				E1ADC1C527576827000962CE /* LaunchScreen.storyboard */,
+				E1ADC1C027576826000962CE /* Main.storyboard */,
+			);
+			path = Storybord;
+			sourceTree = "<group>";
+		};
+		E119A091275B5B1C00289FC3 /* Modeller */ = {
+			isa = PBXGroup;
+			children = (
+				E119A08B275A2AE400289FC3 /* PlayerActions.swift */,
+				E1ADC1D22757759E000962CE /* Player.swift */,
+			);
+			path = Modeller;
+			sourceTree = "<group>";
+		};
 		E1ADC1AE27576825000962CE = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +92,13 @@
 		E1ADC1B927576826000962CE /* Tic-Tac-Toe */ = {
 			isa = PBXGroup;
 			children = (
+				E119A091275B5B1C00289FC3 /* Modeller */,
+				E119A090275B5AED00289FC3 /* Storybord */,
+				E119A08F275B5AC900289FC3 /* View Controller */,
 				E1ADC1BA27576826000962CE /* AppDelegate.swift */,
 				E1ADC1BC27576826000962CE /* SceneDelegate.swift */,
-				E1ADC1BE27576826000962CE /* ViewController.swift */,
-				E1ADC1C027576826000962CE /* Main.storyboard */,
 				E1ADC1C327576827000962CE /* Assets.xcassets */,
-				E1ADC1C527576827000962CE /* LaunchScreen.storyboard */,
 				E1ADC1C827576827000962CE /* Info.plist */,
-				E1ADC1CE27576A36000962CE /* TicTacToeViewController.swift */,
-				E1ADC1D027576B12000962CE /* TicTacToeCollectionViewCell.swift */,
-				E1ADC1D22757759E000962CE /* Player.swift */,
-				E119A08B275A2AE400289FC3 /* PlayerActions.swift */,
 			);
 			path = "Tic-Tac-Toe";
 			sourceTree = "<group>";
