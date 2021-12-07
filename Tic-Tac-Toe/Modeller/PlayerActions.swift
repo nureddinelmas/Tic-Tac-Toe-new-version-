@@ -18,8 +18,7 @@ class PlayerActions {
         var checkForPlayer1 = true
         var checkForPlayer2 = true
 
-
-//        Horizontal
+        //  Horizontal find a winner
         for column in 0...Int(gameSize-1){
             for row in 0...Int(gameSize-1) {
 
@@ -47,7 +46,7 @@ class PlayerActions {
         }
 
 
-        //Vertical Check
+        //Vertical find a winner
         for row in 0...Int(gameSize-1){
             for column in 0...Int(gameSize-1) {
                 let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: column)) as! TicTacToeCollectionViewCell
@@ -69,7 +68,7 @@ class PlayerActions {
             }
         }
 
-        //Right Diagonal Check
+        //Right find a winner
         for row in 0...Int(gameSize-1){
             let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: row)) as! TicTacToeCollectionViewCell
 
@@ -89,7 +88,7 @@ class PlayerActions {
             checkForPlayer2 = true
         }
 
-        //
+        // Left find a winner
         for row in 0...Int(gameSize-1){
             let cell = cVW.cellForItem(at: IndexPath.init(row: row, section: Int(gameSize-1) - row)) as! TicTacToeCollectionViewCell
             if cell.theTag != p1Tag {

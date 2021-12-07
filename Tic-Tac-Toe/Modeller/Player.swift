@@ -25,8 +25,8 @@ struct GamePlan{
 
 
 struct Images {
-    var xImage : UIImage
-    var oImage : UIImage
-    var defaultImage: UIImage
+    var xImage : UIImage? = UIImage(named: "x")
+    var oImage : UIImage? = UIImage(named: "o")
+    var defaultImage: UIImage? = UIImage(named: "kvadrat")
  
 }

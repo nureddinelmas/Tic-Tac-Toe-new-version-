@@ -26,7 +26,7 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     
     
-    let image = Images(xImage: UIImage(named: "x")!, oImage: UIImage(named: "o")!, defaultImage: UIImage(named: "kvadrat")!)
+    let image = Images()
     
     
     override func viewDidLoad() {
@@ -46,9 +46,9 @@ class TicTacToeViewController: UIViewController, UICollectionViewDataSource, UIC
         player2.theTag = 2
         
     
-        
+
         let flowlayout = UICollectionViewFlowLayout()
-       
+
         flowlayout.scrollDirection = .vertical
         flowlayout.minimumLineSpacing = 1
         flowlayout.minimumInteritemSpacing = 1

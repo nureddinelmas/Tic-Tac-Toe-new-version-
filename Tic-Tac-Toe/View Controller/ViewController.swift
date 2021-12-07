@@ -14,13 +14,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBOutlet weak var player2NameLabel: UITextField!
     @IBOutlet weak var player1NameLabel: UITextField!
-    
     private var playSizeValues = ["3 x 3", "4 x 4", "5 x 5", "6 x 6", "9 x 9", "10 x 10"]
     var selectedSize : Int = 3
    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    
         playSizePickerView.delegate = self
         playSizePickerView.dataSource = self
         playSizePickerView.selectRow(playSizeValues.count/3, inComponent: 0, animated: true)
